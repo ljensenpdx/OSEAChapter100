@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OSEA Estacada Chapter 100 | Membership Drive</title>
+    
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Load FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Load Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Montserrat', 'sans-serif'],
+                    },
+                    colors: {
+                        oseaNavy: '#002855',
+                        oseaGold: '#F2A900',
+                        rangerGreen: '#004D2C',
+                        rangerBlack: '#000000',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            /* Background image with a dark gradient overlay blending Navy and Green */
+            background-image: 
+                linear-gradient(to bottom, rgba(0, 40, 85, 0.85), rgba(0, 77, 44, 0.90)), 
+                url('https://scontent-sea5-1.xx.fbcdn.net/v/t39.30808-6/491342466_1221310923332904_3958040484620103444_n.jpg?stp=dst-jpg_tt6&cstp=mx2048x1365&ctp=s2048x1365&_nc_cat=101&ccb=1-7&_nc_sid=127cfc&_nc_ohc=4UYUQWrU4qoQ7kNvwGtHiMp&_nc_oc=AdqVbUy-lkjQ56dVgFbPpwCjAPiZR02GNAnL0-CF6khBntn1AksWxElWqYjEqaJlf5Q&_nc_zt=23&_nc_ht=scontent-sea5-1.xx&_nc_gid=6USBVBeKqzIUuQsI2ngZ2g&_nc_ss=7b2a8&oh=00_AQPUMs5IU9byNgprqH-a5ioK4srH5M2OFZRgJfNGnT4JuA&oe=6AC26D89');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+            min-height: 100vh;
+        }
+
+        .target-line {
+            position: absolute;
+            left: 80%;
+            top: -10px;
+            bottom: -10px;
+            width: 4px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            z-index: 20;
+        }
+
+        .progress-shadow {
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.5), 0 0 20px rgba(242, 169, 0, 0.2);
+        }
+        
+        .letter-shadow {
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+    </style>
+</head>
+<body class="antialiased flex flex-col items-center">
+
+    <header class="w-full bg-white/95 backdrop-blur-sm px-6 md:px-12 py-4 flex justify-between items-center border-b-4 border-oseaGold sticky top-0 z-50 shadow-xl">
+        <div class="flex items-center gap-4">
+            <h1 class="text-4xl md:text-5xl font-heading font-black text-oseaNavy tracking-wider m-0">OSEA</h1>
+        </div>
+        <div class="flex items-center">
+            <img src="https://cfunity-school-logos.nfhsnetwork.com/school_logos/e104b783-91d0-4185-ab92-95cfd757b401/d3cd8606cd_p137.png" alt="Estacada Star" class="max-h-[50px] drop-shadow-sm">
+        </div>
+    </header>
+
+    <main class="w-full max-w-5xl px-4 py-12 md:py-20 flex flex-col items-center text-center">
+        
+        <div class="mb-12 w-full">
+            <h2 class="text-lg md:text-xl font-bold text-oseaGold uppercase tracking-[0.2em] mb-4 drop-shadow-md">
+                OSEA Estacada Chapter 100 | Classified Staff United
+            </h2>
+            <h3 class="text-4xl md:text-6xl font-heading font-black leading-tight text-white uppercase drop-shadow-xl text-balance">
+                Bargaining Together, Standing Strong: <br>
+                <span class="text-oseaGold">Your Voice Matters.</span>
+            </h3>
+        </div>
+
+        <!-- Progress Bar Section -->
+        <div class="w-full max-w-4xl bg-white/10 backdrop-blur-md border border-white/20 p-6 md:p-8 rounded-3xl shadow-2xl mb-12">
+            
+            <div class="relative w-full h-16 md:h-20 bg-rangerBlack/50 rounded-full progress-shadow border-2 border-gray-400 overflow-visible mb-8">
+                <!-- Filled portion -->
+                <div class="absolute left-0 top-0 h-full bg-gradient-to-r from-oseaGold to-yellow-300 rounded-l-full w-[30%] flex items-center justify-end pr-4 transition-all duration-1000 z-10" style="border-right: 2px solid rgba(0,0,0,0.2);">
+                    <span class="text-oseaNavy font-black text-2xl md:text-3xl drop-shadow-sm">30%</span>
+                </div>
+                
+                <!-- Target Line -->
+                <div class="target-line rounded-full">
+                    <div class="absolute -top-10 md:-top-12 left-1/2 transform -translate-x-1/2 bg-white text-rangerBlack font-black px-3 py-1 rounded-lg text-lg md:text-xl shadow-lg whitespace-nowrap">
+                        GOAL: 80%
+                        <div class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-t-[8px] border-t-white"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-between w-full text-xs md:text-sm font-bold text-gray-300 uppercase tracking-wider mb-8">
+                <span>Our Current Collective Voice</span>
+                <span>Target For Strong Bargaining</span>
+            </div>
+
+            <p class="text-lg md:text-2xl font-bold leading-relaxed mb-8 text-white drop-shadow-lg text-balance">
+                RIGHT NOW, WE ARE AT 30% MEMBERSHIP. WE NEED 80% TO HAVE A POWERFUL VOICE AT THE BARGAINING TABLE.<br>
+                <span class="text-oseaGold text-xl md:text-3xl mt-2 block font-black">JUST 40 MORE MEMBERS NEEDED TO JOIN US!</span>
+            </p>
+
+            <a href="#" class="inline-block bg-oseaNavy text-white border-2 border-oseaGold hover:bg-oseaGold hover:text-oseaNavy hover:border-white transition-all duration-300 font-black text-lg md:text-xl py-4 px-8 md:px-12 rounded-full uppercase tracking-wide shadow-[0_0_20px_rgba(242,169,0,0.4)] hover:scale-105">
+                Join Today & Make Our Voice Heard
+            </a>
+        </div>
+
+        <div class="w-full max-w-4xl bg-[#fdfbf7] text-gray-900 rounded-2xl letter-shadow p-8 md:p-14 relative mt-8 border-t-8 border-rangerGreen text-left">
+            <div class="absolute top-0 right-8 transform -translate-y-1/2 bg-oseaGold text-oseaNavy font-black px-6 py-2 rounded-full shadow-lg border-2 border-white uppercase text-sm tracking-wider">
+                Leadership Update
+            </div>
+            
+            <h2 class="text-2xl md:text-3xl font-heading font-black text-oseaNavy mb-8 border-b-2 border-gray-200 pb-4 text-center uppercase tracking-wide">
+                A Message From Your Leadership Team
+            </h2>
+            
+            <div class="space-y-6 text-lg font-medium leading-relaxed text-gray-800">
+                <p class="font-bold">Dear Classified Staff,</p>
+                <p>We know our contract negotiations are taking longer than any of us wanted. As your leadership team, we truly share and understand your frustration during this long wait. Waiting for answers is hard, especially when you are working so hard every single day.</p>
+                <p>Right now, some of our members are paid way below what people make in other school districts, and there are several facing increasingly difficult working conditions. This is unfair and unacceptable. We refuse to accept a bad deal just to finish quickly. We are working diligently every day to get the absolute best options, fair pay, safer and better working environments, and strong protections for every single member of our union.</p>
+                <p class="bg-yellow-50 p-4 border-l-4 border-oseaGold rounded-r-lg">
+                    <span class="font-bold text-oseaNavy">Please know that your patience will pay off. Anything we agree to in our final contract will be retroactive to the very beginning of this bargaining session.</span> This means you will get back-pay for the time we spent waiting.
+                </p>
+                <p>Even though this waiting period is tough right now, standing strong together will bring us a much better deal in the long run. Thank you for your continued support, your unity, and your dedication.</p>
+                
+                <div class="pt-6 mt-6 border-t border-gray-200">
+                    <p class="font-black text-xl text-rangerGreen">- OSEA Estacada Chapter 100 Leadership Team</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="w-full max-w-5xl mt-20 mb-12">
+            <h2 class="text-3xl md:text-4xl font-heading font-black text-white mb-10 uppercase drop-shadow-lg text-center">
+                Why Join OSEA Chapter 100?
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+                <!-- Point 1 -->
+                <div class="bg-oseaNavy/90 backdrop-blur-sm border border-white/10 p-6 md:p-8 rounded-2xl shadow-xl text-left hover:bg-oseaNavy transition-colors group">
+                    <div class="text-oseaGold text-4xl mb-4 group-hover:scale-110 transition-transform"><i class="fa-solid fa-money-check-dollar"></i></div>
+                    <h3 class="text-xl font-black text-white mb-2 uppercase">Fair Pay & Retroactive Gains</h3>
+                    <p class="text-gray-300 font-medium">Secure competitive wages and guaranteed back-pay to the start of bargaining.</p>
+                </div>
+                
+                <!-- Point 2 -->
+                <div class="bg-rangerGreen/90 backdrop-blur-sm border border-white/10 p-6 md:p-8 rounded-2xl shadow-xl text-left hover:bg-rangerGreen transition-colors group">
+                    <div class="text-white text-4xl mb-4 group-hover:scale-110 transition-transform"><i class="fa-solid fa-users"></i></div>
+                    <h3 class="text-xl font-black text-white mb-2 uppercase">Unity & Numbers</h3>
+                    <p class="text-gray-300 font-medium">Standing together gives us the absolute power to demand what we deserve.</p>
+                </div>
+                
+                <!-- Point 3 -->
+                <div class="bg-rangerBlack/80 backdrop-blur-sm border border-white/10 p-6 md:p-8 rounded-2xl shadow-xl text-left hover:bg-rangerBlack transition-colors group">
+                    <div class="text-oseaGold text-4xl mb-4 group-hover:scale-110 transition-transform"><i class="fa-solid fa-shield-halved"></i></div>
+                    <h3 class="text-xl font-black text-white mb-2 uppercase">Dedicated Protections</h3>
+                    <p class="text-gray-300 font-medium">Strong defense, advice, and representation for all members navigating difficult working conditions.</p>
+                </div>
+                
+                <!-- Point 4 -->
+                <div class="bg-oseaNavy/90 backdrop-blur-sm border border-white/10 p-6 md:p-8 rounded-2xl shadow-xl text-left hover:bg-oseaNavy transition-colors group">
+                    <div class="text-white text-4xl mb-4 group-hover:scale-110 transition-transform"><i class="fa-solid fa-bullhorn"></i></div>
+                    <h3 class="text-xl font-black text-white mb-2 uppercase">Amplify Our Voice</h3>
+                    <p class="text-gray-300 font-medium">Every single member strengthens our position and leverage at the bargaining table.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-8 mb-16">
+            <a href="#" class="inline-block bg-oseaGold text-oseaNavy font-black text-2xl py-5 px-14 rounded-full shadow-[0_10px_30px_rgba(242,169,0,0.5)] hover:bg-yellow-300 hover:-translate-y-1 transition-all duration-300 uppercase tracking-widest border-4 border-oseaNavy">
+                Don't Wait. Join Now.
+            </a>
+        </div>
+
+    </main>
+
+</body>
+</html>
