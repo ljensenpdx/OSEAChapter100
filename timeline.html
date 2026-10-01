@@ -15,7 +15,6 @@
             --white: #FFFFFF;
             --alert-red: #d32f2f;
             --union-blue: #e6f0ff;
-            --district-gray: #f9f9f9;
         }
 
         body {
@@ -184,6 +183,21 @@
             box-shadow: 0 3px 6px rgba(0,0,0,0.2);
             text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
         }
+        
+        .delay-live {
+            color: var(--white);
+            font-weight: 900;
+            background-color: #000000;
+            border: 2px solid var(--alert-red);
+            padding: 8px 15px;
+            border-radius: 6px;
+            display: inline-block;
+            margin-top: 8px;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            box-shadow: 0 3px 10px rgba(211,47,47,0.6);
+            font-family: monospace;
+        }
 
         .highlight-row {
             background-color: #ffe6e6 !important;
@@ -252,6 +266,7 @@
             th, td { padding: 10px; font-size: 0.9rem; }
             .date-col, .actor-col { width: auto; }
             .power-box h2 { font-size: 1.5rem; }
+            .delay-live { font-size: 0.9rem; padding: 5px 10px; }
         }
     </style>
 </head>
@@ -263,7 +278,7 @@
     </header>
 
     <div class="container">
-<div class="subtitle">OSEA Estacada Chapter 100 | Contract Negotiations</div>
+        <div class="subtitle">OSEA Estacada Chapter 100 | Contract Negotiations</div>
         <div class="main-heading">A VISION OF CONTINUOUS IMPROVEMENT.<br>A REALITY OF ENDLESS DELAYS.</div>
 
         <div class="intro-text">
@@ -292,7 +307,7 @@
                     <tr class="district-row">
                         <td class="date-col">July 1</td>
                         <td class="actor-col">District</td>
-                        <td>District provides response. <br><span class="delay-moderate">⏱️ OVER 1 MONTH DELAY</span></td>
+                        <td>District provides response. <br><span class="delay-moderate">⏱️ 33 DAY DELAY</span></td>
                     </tr>
                     <tr class="district-row">
                         <td class="date-col">July 8</td>
@@ -317,7 +332,10 @@
                     <tr class="district-row highlight-row">
                         <td class="date-col">Current</td>
                         <td class="actor-col" style="color: var(--alert-red);">District</td>
-                        <td><strong>No response as of yet from the District.</strong> <br><span class="delay-extreme">🛑 WAITING OVER 55 DAYS</span></td>
+                        <td>
+                            <strong>No response as of yet from the District.</strong><br>
+                            <span class="delay-live" id="live-timer-1-4">Calculating delay...</span>
+                        </td>
                     </tr>
                 </tbody>
 
@@ -363,6 +381,14 @@
                         <td class="actor-col">Union</td>
                         <td>Union sends responses for Articles 5-11.</td>
                     </tr>
+                    <tr class="district-row highlight-row">
+                        <td class="date-col">Current</td>
+                        <td class="actor-col" style="color: var(--alert-red);">District</td>
+                        <td>
+                            <strong>Awaiting District Response.</strong><br>
+                            <span class="delay-extreme daily-timer" data-date="2026-09-27">Calculating...</span>
+                        </td>
+                    </tr>
                 </tbody>
 
                 <!-- ARTICLES 9-11 -->
@@ -402,6 +428,14 @@
                         <td class="actor-col">Union</td>
                         <td>Union sends responses for Articles 5-11.</td>
                     </tr>
+                    <tr class="district-row highlight-row">
+                        <td class="date-col">Current</td>
+                        <td class="actor-col" style="color: var(--alert-red);">District</td>
+                        <td>
+                            <strong>Awaiting District Response.</strong><br>
+                            <span class="delay-extreme daily-timer" data-date="2026-09-27">Calculating...</span>
+                        </td>
+                    </tr>
                 </tbody>
 
                 <!-- ARTICLES 12-14 -->
@@ -430,6 +464,14 @@
                         <td class="date-col">Sept 29</td>
                         <td class="actor-col">Union</td>
                         <td>Union response to Articles 12-14 attached.</td>
+                    </tr>
+                    <tr class="district-row highlight-row">
+                        <td class="date-col">Current</td>
+                        <td class="actor-col" style="color: var(--alert-red);">District</td>
+                        <td>
+                            <strong>Awaiting District Response.</strong><br>
+                            <span class="delay-extreme daily-timer" data-date="2026-09-29">Calculating...</span>
+                        </td>
                     </tr>
                 </tbody>
 
@@ -465,6 +507,14 @@
                         <td class="actor-col">Union</td>
                         <td>Union submits Article 15 for District review and completes focus shift to wages and benefits.</td>
                     </tr>
+                    <tr class="district-row highlight-row">
+                        <td class="date-col">Current</td>
+                        <td class="actor-col" style="color: var(--alert-red);">District</td>
+                        <td>
+                            <strong>Awaiting District Response.</strong><br>
+                            <span class="delay-extreme daily-timer" data-date="2026-09-26">Calculating...</span>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -474,7 +524,7 @@
             As of September 29th, the District now has responses from the Union on <strong>Articles 1-15</strong>. We will cease further work on these articles to await their response. The Union team has done its part. The delays are not coming from our side of the table.
         </div>
 
-        <!-- NEW LEVERAGE / CTA BOX -->
+        <!-- LEVERAGE / CTA BOX -->
         <div class="power-box">
             <h2>OUR MEMBERSHIP IS OUR LEVERAGE</h2>
             <p>The more membership we have, the louder of a voice we have at the bargaining table. When we stand united in overwhelming numbers, the District cannot ignore us or drag their feet without consequences.</p>
@@ -487,5 +537,46 @@
         </div>
     </div>
 
+    <script>
+        // LIVE TIMER FOR ARTICLES 1-4 (Updates every second)
+        function updateLiveTimer() {
+            // Set start date to August 4, 2026 at midnight
+            const startDate = new Date('August 4, 2026 00:00:00').getTime(); 
+            const now = new Date().getTime();
+            const distance = now - startDate;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('live-timer-1-4').innerHTML = 
+                "🛑 " + days + " days, " + hours + " hours, " + minutes + " minutes, " + seconds + " seconds";
+        }
+
+        // DAILY TIMERS (Updates automatically based on current date)
+        function calculateDailyDelays() {
+            const today = new Date();
+            today.setHours(0,0,0,0); // Normalize to start of day
+            
+            const elements = document.querySelectorAll('.daily-timer');
+            elements.forEach(el => {
+                const submitDateStr = el.getAttribute('data-date');
+                // Create submission date and split to avoid timezone shift issues
+                const parts = submitDateStr.split('-');
+                const submitDate = new Date(parts[0], parts[1] - 1, parts[2]);
+                submitDate.setHours(0,0,0,0);
+                
+                const diffTime = Math.abs(today - submitDate);
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                
+                el.innerHTML = "🛑 WAITING " + diffDays + " DAYS";
+            });
+        }
+
+        // Initialize scripts
+        setInterval(updateLiveTimer, 1000);
+        calculateDailyDelays();
+    </script>
 </body>
 </html>
