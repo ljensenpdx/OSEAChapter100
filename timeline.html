@@ -120,10 +120,10 @@
         }
 
         td {
-            padding: 12px 20px;
+            padding: 15px 20px;
             border-bottom: 1px solid #ddd;
             font-size: 1.05rem;
-            vertical-align: top;
+            vertical-align: middle;
         }
 
         .date-col {
@@ -154,33 +154,77 @@
             color: #555;
         }
 
+        /* Highlighted Delay Badges */
         .delay-extreme {
-            color: var(--alert-red);
+            color: var(--white);
             font-weight: 900;
-            background-color: #ffe6e6;
-            border: 2px solid var(--alert-red);
-            padding: 2px 6px;
-            border-radius: 4px;
+            background-color: var(--alert-red);
+            border: 2px solid #8b0000;
+            padding: 6px 12px;
+            border-radius: 6px;
             display: inline-block;
             margin-top: 5px;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
         }
 
         .delay-moderate {
-            color: #d48800;
-            font-weight: bold;
+            color: var(--white);
+            font-weight: 900;
+            background-color: #d48800;
+            border: 2px solid #a36800;
+            padding: 6px 12px;
+            border-radius: 6px;
+            display: inline-block;
+            margin-top: 5px;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
         }
 
-        /* Status Box */
+        .highlight-row {
+            background-color: #ffe6e6 !important;
+            border-left: 6px solid var(--alert-red);
+        }
+
+        /* Status & Power Boxes */
         .status-box {
             background-color: var(--osea-navy);
-            border: 2px solid var(--osea-gold);
+            border: 2px solid #888;
             padding: 25px;
             border-radius: 10px;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
             font-size: 1.2rem;
             line-height: 1.5;
             box-shadow: 0 5px 15px rgba(0,0,0,0.4);
             text-align: left;
+        }
+
+        .power-box {
+            background-color: rgba(0, 0, 0, 0.8);
+            border: 3px solid var(--osea-gold);
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            font-size: 1.3rem;
+            line-height: 1.6;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+            text-align: center;
+        }
+
+        .power-box h2 {
+            color: var(--white);
+            margin-top: 0;
+            font-size: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-bottom: 2px solid var(--alert-red);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+            display: inline-block;
         }
 
         .btn {
@@ -207,6 +251,7 @@
             .main-heading { font-size: 2rem; }
             th, td { padding: 10px; font-size: 0.9rem; }
             .date-col, .actor-col { width: auto; }
+            .power-box h2 { font-size: 1.5rem; }
         }
     </style>
 </head>
@@ -235,44 +280,44 @@
                 </thead>
                 <tbody>
                     <tr class="union-row">
-                        <td class="date-col">May 29[cite: 2]</td>
+                        <td class="date-col">May 29</td>
                         <td class="actor-col">Union</td>
-                        <td>1st submitted for District review.[cite: 2]</td>
+                        <td>1st submitted for District review.</td>
                     </tr>
                     <tr class="union-row">
-                        <td class="date-col">June 30[cite: 2]</td>
+                        <td class="date-col">June 30</td>
                         <td class="actor-col">Union</td>
-                        <td>Union responds with additions to 1st submission from May 29th.[cite: 2]</td>
+                        <td>Union responds with additions to 1st submission from May 29th.</td>
                     </tr>
                     <tr class="district-row">
-                        <td class="date-col">July 1[cite: 2]</td>
+                        <td class="date-col">July 1</td>
                         <td class="actor-col">District</td>
-                        <td>District provides response. <span class="delay-moderate">(Over 1 Month Delay from initial)</span>[cite: 2]</td>
+                        <td>District provides response. <br><span class="delay-moderate">⏱️ OVER 1 MONTH DELAY</span></td>
                     </tr>
                     <tr class="district-row">
-                        <td class="date-col">July 8[cite: 2]</td>
+                        <td class="date-col">July 8</td>
                         <td class="actor-col">District</td>
-                        <td>District responds with additional changes.[cite: 2]</td>
+                        <td>District responds with additional changes.</td>
                     </tr>
                     <tr class="union-row">
-                        <td class="date-col">July 21[cite: 2]</td>
+                        <td class="date-col">July 21</td>
                         <td class="actor-col">Union</td>
-                        <td>Union responds with changes.[cite: 2]</td>
+                        <td>Union responds with changes.</td>
                     </tr>
                     <tr class="district-row">
-                        <td class="date-col">July 23[cite: 2]</td>
+                        <td class="date-col">July 23</td>
                         <td class="actor-col">District</td>
-                        <td>District responds.[cite: 2]</td>
+                        <td>District responds.</td>
                     </tr>
                     <tr class="union-row">
-                        <td class="date-col">August 4[cite: 2]</td>
+                        <td class="date-col">August 4</td>
                         <td class="actor-col">Union</td>
-                        <td>Union responds with changes.[cite: 2]</td>
+                        <td>Union responds with changes.</td>
                     </tr>
-                    <tr class="district-row" style="background-color: #ffe6e6;">
+                    <tr class="district-row highlight-row">
                         <td class="date-col">Current</td>
                         <td class="actor-col" style="color: var(--alert-red);">District</td>
-                        <td><strong>No response as of yet from the District.[cite: 2]</strong> <br><span class="delay-extreme">WAITING OVER 55 DAYS</span></td>
+                        <td><strong>No response as of yet from the District.</strong> <br><span class="delay-extreme">🛑 WAITING OVER 55 DAYS</span></td>
                     </tr>
                 </tbody>
 
@@ -284,39 +329,39 @@
                 </thead>
                 <tbody>
                     <tr class="union-row">
-                        <td class="date-col">May 29[cite: 2]</td>
+                        <td class="date-col">May 29</td>
                         <td class="actor-col">Union</td>
-                        <td>Articles 5 & 6 submitted for District review.[cite: 2]</td>
+                        <td>Articles 5 & 6 submitted for District review.</td>
                     </tr>
                     <tr class="union-row">
-                        <td class="date-col">June 3[cite: 2]</td>
+                        <td class="date-col">June 3</td>
                         <td class="actor-col">Union</td>
-                        <td>Articles 7 & 8 submitted for District review.[cite: 2]</td>
+                        <td>Articles 7 & 8 submitted for District review.</td>
                     </tr>
                     <tr class="district-row">
-                        <td class="date-col">July 1[cite: 2]</td>
+                        <td class="date-col">July 1</td>
                         <td class="actor-col">District</td>
-                        <td>District responds.[cite: 2]</td>
+                        <td>District responds.</td>
                     </tr>
                     <tr class="district-row">
-                        <td class="date-col">July 8[cite: 2]</td>
+                        <td class="date-col">July 8</td>
                         <td class="actor-col">District</td>
-                        <td>District responds with additional changes.[cite: 2]</td>
+                        <td>District responds with additional changes.</td>
                     </tr>
                     <tr class="union-row">
-                        <td class="date-col">July 28[cite: 2]</td>
+                        <td class="date-col">July 28</td>
                         <td class="actor-col">Union</td>
-                        <td>Union responds with changes.[cite: 2]</td>
+                        <td>Union responds with changes.</td>
                     </tr>
-                    <tr class="district-row">
-                        <td class="date-col">Sept 23[cite: 2]</td>
-                        <td class="actor-col">District</td>
-                        <td>District finally responds.[cite: 2]<br><span class="delay-extreme">57 DAY DELAY</span></td>
+                    <tr class="district-row highlight-row">
+                        <td class="date-col">Sept 23</td>
+                        <td class="actor-col" style="color: var(--alert-red);">District</td>
+                        <td>District finally responds.<br><span class="delay-extreme">🛑 57 DAY DELAY</span></td>
                     </tr>
                     <tr class="union-row">
-                        <td class="date-col">Sept 27[cite: 2]</td>
+                        <td class="date-col">Sept 27</td>
                         <td class="actor-col">Union</td>
-                        <td>Union sends responses for Articles 5-11.[cite: 2]</td>
+                        <td>Union sends responses for Articles 5-11.</td>
                     </tr>
                 </tbody>
 
@@ -328,34 +373,34 @@
                 </thead>
                 <tbody>
                     <tr class="union-row">
-                        <td class="date-col">June 3[cite: 2]</td>
+                        <td class="date-col">June 3</td>
                         <td class="actor-col">Union</td>
-                        <td>1st submitted for District review.[cite: 2]</td>
+                        <td>1st submitted for District review.</td>
                     </tr>
                     <tr class="district-row">
-                        <td class="date-col">July 1[cite: 2]</td>
+                        <td class="date-col">July 1</td>
                         <td class="actor-col">District</td>
-                        <td>District responds.[cite: 2]</td>
+                        <td>District responds.</td>
                     </tr>
                     <tr class="district-row">
-                        <td class="date-col">July 8[cite: 2]</td>
+                        <td class="date-col">July 8</td>
                         <td class="actor-col">District</td>
-                        <td>District responds with additional changes.[cite: 2]</td>
+                        <td>District responds with additional changes.</td>
                     </tr>
                     <tr class="union-row">
-                        <td class="date-col">August 11[cite: 2]</td>
+                        <td class="date-col">August 11</td>
                         <td class="actor-col">Union</td>
-                        <td>Union responds with changes.[cite: 2]</td>
+                        <td>Union responds with changes.</td>
                     </tr>
-                    <tr class="district-row">
-                        <td class="date-col">Sept 23[cite: 2]</td>
-                        <td class="actor-col">District</td>
-                        <td>District finally responds.[cite: 2] <br><span class="delay-extreme">43 DAY DELAY</span></td>
+                    <tr class="district-row highlight-row">
+                        <td class="date-col">Sept 23</td>
+                        <td class="actor-col" style="color: var(--alert-red);">District</td>
+                        <td>District finally responds. <br><span class="delay-extreme">🛑 43 DAY DELAY</span></td>
                     </tr>
                     <tr class="union-row">
-                        <td class="date-col">Sept 27[cite: 2]</td>
+                        <td class="date-col">Sept 27</td>
                         <td class="actor-col">Union</td>
-                        <td>Union sends responses for Articles 5-11.[cite: 2]</td>
+                        <td>Union sends responses for Articles 5-11.</td>
                     </tr>
                 </tbody>
 
@@ -367,24 +412,24 @@
                 </thead>
                 <tbody>
                     <tr class="union-row">
-                        <td class="date-col">June 9[cite: 2]</td>
+                        <td class="date-col">June 9</td>
                         <td class="actor-col">Union</td>
-                        <td>1st submitted for District review.[cite: 2]</td>
+                        <td>1st submitted for District review.</td>
                     </tr>
                     <tr class="district-row">
-                        <td class="date-col">July 1[cite: 2]</td>
+                        <td class="date-col">July 1</td>
                         <td class="actor-col">District</td>
-                        <td>District responds.[cite: 2]</td>
+                        <td>District responds.</td>
                     </tr>
                     <tr class="district-row">
-                        <td class="date-col">July 8[cite: 2]</td>
+                        <td class="date-col">July 8</td>
                         <td class="actor-col">District</td>
-                        <td>District responds with additional changes.[cite: 2]</td>
+                        <td>District responds with additional changes.</td>
                     </tr>
                     <tr class="union-row">
-                        <td class="date-col">Sept 29[cite: 3]</td>
+                        <td class="date-col">Sept 29</td>
                         <td class="actor-col">Union</td>
-                        <td>Union response to Articles 12-14 attached.[cite: 3]</td>
+                        <td>Union response to Articles 12-14 attached.</td>
                     </tr>
                 </tbody>
 
@@ -396,29 +441,29 @@
                 </thead>
                 <tbody>
                     <tr class="district-row">
-                        <td class="date-col">Sept 3[cite: 2]</td>
+                        <td class="date-col">Sept 3</td>
                         <td class="actor-col">District</td>
-                        <td>District proposes pivoting focus of negotiations to wages and benefits.[cite: 2]</td>
+                        <td>District proposes pivoting focus of negotiations to wages and benefits.</td>
                     </tr>
                     <tr class="union-row">
-                        <td class="date-col">Sept 7[cite: 2]</td>
+                        <td class="date-col">Sept 7</td>
                         <td class="actor-col">Union</td>
-                        <td>Union agrees to pivot focus, while completing Article 15.[cite: 2]</td>
+                        <td>Union agrees to pivot focus, while completing Article 15.</td>
                     </tr>
                     <tr class="union-row">
-                        <td class="date-col">Sept 9[cite: 2]</td>
+                        <td class="date-col">Sept 9</td>
                         <td class="actor-col">Union</td>
-                        <td>Union sends RFI to District to gather information required to negotiate wages and benefits.[cite: 2]</td>
+                        <td>Union sends RFI to District to gather information required to negotiate wages and benefits.</td>
                     </tr>
                     <tr class="district-row">
-                        <td class="date-col">Sept 22[cite: 2]</td>
+                        <td class="date-col">Sept 22</td>
                         <td class="actor-col">District</td>
-                        <td>District sends information.[cite: 2]</td>
+                        <td>District sends information.</td>
                     </tr>
                     <tr class="union-row">
-                        <td class="date-col">Sept 26[cite: 2]</td>
+                        <td class="date-col">Sept 26</td>
                         <td class="actor-col">Union</td>
-                        <td>Union submits Article 15 for District review and completes focus shift to wages and benefits.[cite: 2]</td>
+                        <td>Union submits Article 15 for District review and completes focus shift to wages and benefits.</td>
                     </tr>
                 </tbody>
             </table>
@@ -426,7 +471,15 @@
 
         <div class="status-box">
             <strong style="color: var(--osea-gold); font-size: 1.4rem;">FINAL STATUS: WAITING ON THE DISTRICT</strong><br><br>
-            As of September 29th, the District now has responses from the Union on <strong>Articles 1-15</strong>.[cite: 3] We will cease further work on these articles to await their response.[cite: 3] The Union team has done its part. The delays are not coming from our side of the table.
+            As of September 29th, the District now has responses from the Union on <strong>Articles 1-15</strong>. We will cease further work on these articles to await their response. The Union team has done its part. The delays are not coming from our side of the table.
+        </div>
+
+        <!-- NEW LEVERAGE / CTA BOX -->
+        <div class="power-box">
+            <h2>OUR MEMBERSHIP IS OUR LEVERAGE</h2>
+            <p>The more membership we have, the louder of a voice we have at the bargaining table. When we stand united in overwhelming numbers, the District cannot ignore us or drag their feet without consequences.</p>
+            <p>Higher membership means we have the power to push through these delays, demand the respect we deserve, and get things done in our favor.</p>
+            <p style="color: var(--osea-gold); font-weight: 900; font-size: 1.5rem; margin-top: 25px;">Don't let them stall our future. Join OSEA Chapter 100 today.</p>
         </div>
 
         <div style="margin-bottom: 50px;">
