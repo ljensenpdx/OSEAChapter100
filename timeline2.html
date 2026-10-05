@@ -88,7 +88,7 @@
             background-color: rgba(0, 0, 0, 0.7);
             padding: 25px;
             border-left: 6px solid var(--alert-red);
-            margin-bottom: 30px;
+            margin-bottom: 40px;
             text-align: left;
             border-radius: 0 10px 10px 0;
         }
@@ -123,9 +123,9 @@
             color: #555;
         }
 
-        .score-union h3 { color: #2e7d32; }
-        .score-district h3 { color: var(--alert-red); }
-        .score-hostage h3 { color: var(--ranger-black); }
+        .score-union h3 { color: #2e7d32; font-weight: 900; }
+        .score-district h3 { color: var(--alert-red); font-weight: 900;}
+        .score-hostage h3 { color: var(--ranger-black); font-weight: 900;}
 
         .score-number {
             font-size: 3rem;
@@ -175,38 +175,34 @@
         .district-row { background-color: var(--white); }
         .district-row .actor-col { color: #555; }
 
-        .quick-turnaround {
-            color: #2e7d32;
-            font-weight: bold;
-            font-size: 0.95rem;
-        }
-
-        .delay-extreme {
+        /* The New Highlight Badges */
+        .union-fast {
+            background-color: #2e7d32;
             color: var(--white);
-            font-weight: 900;
-            background-color: var(--alert-red);
-            border: 2px solid #8b0000;
             padding: 6px 12px;
             border-radius: 6px;
             display: inline-block;
+            font-weight: bold;
             margin-top: 5px;
-            font-size: 1rem;
-            letter-spacing: 1px;
             box-shadow: 0 3px 6px rgba(0,0,0,0.3);
             text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            letter-spacing: 0.5px;
         }
 
-        .delay-moderate {
+        .district-slow {
+            background-color: #b71c1c;
             color: var(--white);
-            font-weight: 900;
-            background-color: #d48800;
-            border: 2px solid #a36800;
-            padding: 6px 12px;
+            padding: 8px 15px;
             border-radius: 6px;
             display: inline-block;
+            font-weight: 900;
             margin-top: 5px;
-            font-size: 0.95rem;
+            font-size: 1.1rem;
+            border: 2px solid #ff5252;
+            box-shadow: 0 4px 10px rgba(211,47,47,0.4);
+            text-transform: uppercase;
             letter-spacing: 1px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
         }
         
         .delay-live {
@@ -265,344 +261,3 @@
             margin-bottom: 20px;
             display: inline-block;
         }
-
-        .btn {
-            background-color: var(--text-light);
-            color: var(--ranger-black);
-            border: 2px solid var(--ranger-black);
-            padding: 15px 40px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            border-radius: 30px;
-            cursor: pointer;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            display: inline-block;
-        }
-
-        .btn:hover {
-            background-color: var(--osea-gold);
-            transform: translateY(-2px);
-        }
-
-        @media (max-width: 768px) {
-            .scorecard { flex-direction: column; }
-            .main-heading { font-size: 2rem; }
-            th, td { padding: 10px; font-size: 0.9rem; }
-            .date-col, .actor-col { width: auto; }
-            .delay-live { font-size: 0.9rem; padding: 5px 10px; }
-        }
-    </style>
-</head>
-<body>
-
-    <header class="header">
-        <h1>OSEA</h1>
-        <img src="https://cfunity-school-logos.nfhsnetwork.com/school_logos/e104b783-91d0-4185-ab92-95cfd757b401/d3cd8606cd_p137.png" alt="Estacada Star">
-    </header>
-
-    <div class="container">
-        <div class="subtitle">OSEA Estacada Chapter 100 | Contract Negotiations</div>
-        <div class="main-heading">A VISION OF CONTINUOUS IMPROVEMENT.<br>A STRATEGY OF INTENTIONAL STALLING.</div>
-
-        <div class="intro-text">
-            <p><strong>When one side consistently responds in days, and the other side takes months, it isn't a scheduling issue—it is a bargaining strategy.</strong></p>
-            <p>The timeline below proves that the Union is doing the work to reach a fair contract. Every time we submit a proposal, the District forces us to wait. They are running out the clock on the classified staff who keep this district running.</p>
-        </div>
-
-        <div class="scorecard">
-            <div class="score-card score-union">
-                <h3>Union's Fastest Turnaround</h3>
-                <div class="score-number">4</div>
-                <div style="font-weight: bold; margin-top: 5px;">DAYS</div>
-            </div>
-            <div class="score-card score-district">
-                <h3>District's Slowest Turnaround</h3>
-                <div class="score-number">57</div>
-                <div style="font-weight: bold; margin-top: 5px; color: var(--alert-red);">DAYS</div>
-            </div>
-            <div class="score-card score-hostage">
-                <h3>Articles Currently Held By District</h3>
-                <div class="score-number">15</div>
-                <div style="font-weight: bold; margin-top: 5px;">ARTICLES</div>
-            </div>
-        </div>
-
-        <div class="table-container">
-            <table>
-                <!-- ARTICLES 1-4 -->
-                <thead>
-                    <tr>
-                        <th colspan="3" class="group-header">Articles 1-4</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="union-row">
-                        <td class="date-col">May 29</td>
-                        <td class="actor-col">Union</td>
-                        <td>1st submitted for District review.</td>
-                    </tr>
-                    <tr class="union-row">
-                        <td class="date-col">June 30</td>
-                        <td class="actor-col">Union</td>
-                        <td>Union responds with additions to 1st submission.</td>
-                    </tr>
-                    <tr class="district-row">
-                        <td class="date-col">July 1</td>
-                        <td class="actor-col">District</td>
-                        <td>District provides response. <br><span class="delay-moderate">⏱️ DISTRICT SAT ON THIS FOR 33 DAYS</span></td>
-                    </tr>
-                    <tr class="district-row">
-                        <td class="date-col">July 8</td>
-                        <td class="actor-col">District</td>
-                        <td>District responds with additional changes.</td>
-                    </tr>
-                    <tr class="union-row">
-                        <td class="date-col">July 21</td>
-                        <td class="actor-col">Union</td>
-                        <td>Union responds with changes. <br><span class="quick-turnaround">✓ Union turned around in just 13 days</span></td>
-                    </tr>
-                    <tr class="district-row">
-                        <td class="date-col">July 23</td>
-                        <td class="actor-col">District</td>
-                        <td>District responds.</td>
-                    </tr>
-                    <tr class="union-row">
-                        <td class="date-col">August 4</td>
-                        <td class="actor-col">Union</td>
-                        <td>Union responds with changes. <br><span class="quick-turnaround">✓ Union turned around in just 12 days</span></td>
-                    </tr>
-                    <tr class="district-row highlight-row">
-                        <td class="date-col">Current</td>
-                        <td class="actor-col" style="color: var(--alert-red);">District</td>
-                        <td>
-                            <strong>IGNORING THE UNION: No response as of yet.</strong><br>
-                            <span class="delay-live live-timer" data-start="August 4, 2026 00:00:00">Calculating delay...</span>
-                        </td>
-                    </tr>
-                </tbody>
-
-                <!-- ARTICLES 5-8 -->
-                <thead>
-                    <tr>
-                        <th colspan="3" class="group-header">Articles 5-8</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="union-row">
-                        <td class="date-col">May 29</td>
-                        <td class="actor-col">Union</td>
-                        <td>Articles 5 & 6 submitted for District review.</td>
-                    </tr>
-                    <tr class="union-row">
-                        <td class="date-col">June 3</td>
-                        <td class="actor-col">Union</td>
-                        <td>Articles 7 & 8 submitted for District review.</td>
-                    </tr>
-                    <tr class="district-row">
-                        <td class="date-col">July 1</td>
-                        <td class="actor-col">District</td>
-                        <td>District responds.</td>
-                    </tr>
-                    <tr class="district-row">
-                        <td class="date-col">July 8</td>
-                        <td class="actor-col">District</td>
-                        <td>District responds with additional changes.</td>
-                    </tr>
-                    <tr class="union-row">
-                        <td class="date-col">July 28</td>
-                        <td class="actor-col">Union</td>
-                        <td>Union responds with changes. <br><span class="quick-turnaround">✓ Union turned around in 20 days</span></td>
-                    </tr>
-                    <tr class="district-row highlight-row">
-                        <td class="date-col">Sept 23</td>
-                        <td class="actor-col" style="color: var(--alert-red);">District</td>
-                        <td>District finally responds.<br><span class="delay-extreme">🛑 INTENTIONAL STALLING: 57 DAY DELAY</span></td>
-                    </tr>
-                    <tr class="union-row">
-                        <td class="date-col">Sept 27</td>
-                        <td class="actor-col">Union</td>
-                        <td>Union sends responses for Articles 5-11. <br><span class="quick-turnaround">✓ Union turned around in just 4 days</span></td>
-                    </tr>
-                    <tr class="district-row highlight-row">
-                        <td class="date-col">Current</td>
-                        <td class="actor-col" style="color: var(--alert-red);">District</td>
-                        <td>
-                            <strong>BALL IS IN THEIR COURT: Awaiting District Response.</strong><br>
-                            <span class="delay-live live-timer" data-start="September 27, 2026 00:00:00">Calculating delay...</span>
-                        </td>
-                    </tr>
-                </tbody>
-
-                <!-- ARTICLES 9-11 -->
-                <thead>
-                    <tr>
-                        <th colspan="3" class="group-header">Articles 9-11</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="union-row">
-                        <td class="date-col">June 3</td>
-                        <td class="actor-col">Union</td>
-                        <td>1st submitted for District review.</td>
-                    </tr>
-                    <tr class="district-row">
-                        <td class="date-col">July 1</td>
-                        <td class="actor-col">District</td>
-                        <td>District responds.</td>
-                    </tr>
-                    <tr class="district-row">
-                        <td class="date-col">July 8</td>
-                        <td class="actor-col">District</td>
-                        <td>District responds with additional changes.</td>
-                    </tr>
-                    <tr class="union-row">
-                        <td class="date-col">August 11</td>
-                        <td class="actor-col">Union</td>
-                        <td>Union responds with changes.</td>
-                    </tr>
-                    <tr class="district-row highlight-row">
-                        <td class="date-col">Sept 23</td>
-                        <td class="actor-col" style="color: var(--alert-red);">District</td>
-                        <td>District finally responds. <br><span class="delay-extreme">🛑 INTENTIONAL STALLING: 43 DAY DELAY</span></td>
-                    </tr>
-                    <tr class="union-row">
-                        <td class="date-col">Sept 27</td>
-                        <td class="actor-col">Union</td>
-                        <td>Union sends responses for Articles 5-11. <br><span class="quick-turnaround">✓ Union turned around in just 4 days</span></td>
-                    </tr>
-                    <tr class="district-row highlight-row">
-                        <td class="date-col">Current</td>
-                        <td class="actor-col" style="color: var(--alert-red);">District</td>
-                        <td>
-                            <strong>BALL IS IN THEIR COURT: Awaiting District Response.</strong><br>
-                            <span class="delay-live live-timer" data-start="September 27, 2026 00:00:00">Calculating delay...</span>
-                        </td>
-                    </tr>
-                </tbody>
-
-                <!-- ARTICLES 12-14 -->
-                <thead>
-                    <tr>
-                        <th colspan="3" class="group-header">Articles 12-14</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="union-row">
-                        <td class="date-col">June 9</td>
-                        <td class="actor-col">Union</td>
-                        <td>1st submitted for District review.</td>
-                    </tr>
-                    <tr class="district-row">
-                        <td class="date-col">July 1</td>
-                        <td class="actor-col">District</td>
-                        <td>District responds.</td>
-                    </tr>
-                    <tr class="district-row">
-                        <td class="date-col">July 8</td>
-                        <td class="actor-col">District</td>
-                        <td>District responds with additional changes.</td>
-                    </tr>
-                    <tr class="union-row">
-                        <td class="date-col">Sept 29</td>
-                        <td class="actor-col">Union</td>
-                        <td>Union response to Articles 12-14 attached.</td>
-                    </tr>
-                    <tr class="district-row highlight-row">
-                        <td class="date-col">Current</td>
-                        <td class="actor-col" style="color: var(--alert-red);">District</td>
-                        <td>
-                            <strong>BALL IS IN THEIR COURT: Awaiting District Response.</strong><br>
-                            <span class="delay-live live-timer" data-start="September 29, 2026 00:00:00">Calculating delay...</span>
-                        </td>
-                    </tr>
-                </tbody>
-
-                <!-- ARTICLE 15 & PIVOT -->
-                <thead>
-                    <tr>
-                        <th colspan="3" class="group-header">Article 15 & Wages / Benefits Pivot</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="district-row">
-                        <td class="date-col">Sept 3</td>
-                        <td class="actor-col">District</td>
-                        <td>District proposes pivoting focus of negotiations to wages and benefits.</td>
-                    </tr>
-                    <tr class="union-row">
-                        <td class="date-col">Sept 7</td>
-                        <td class="actor-col">Union</td>
-                        <td>Union agrees to pivot focus, while completing Article 15. <br><span class="quick-turnaround">✓ Union agreed in 4 days</span></td>
-                    </tr>
-                    <tr class="union-row">
-                        <td class="date-col">Sept 9</td>
-                        <td class="actor-col">Union</td>
-                        <td>Union sends RFI to District to gather information required to negotiate wages and benefits.</td>
-                    </tr>
-                    <tr class="district-row">
-                        <td class="date-col">Sept 22</td>
-                        <td class="actor-col">District</td>
-                        <td>District sends information.</td>
-                    </tr>
-                    <tr class="union-row">
-                        <td class="date-col">Sept 26</td>
-                        <td class="actor-col">Union</td>
-                        <td>Union submits Article 15 for District review and completes focus shift to wages and benefits.</td>
-                    </tr>
-                    <tr class="district-row highlight-row">
-                        <td class="date-col">Current</td>
-                        <td class="actor-col" style="color: var(--alert-red);">District</td>
-                        <td>
-                            <strong>BALL IS IN THEIR COURT: Awaiting District Response.</strong><br>
-                            <span class="delay-live live-timer" data-start="September 26, 2026 00:00:00">Calculating delay...</span>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <div class="status-box">
-            <strong style="color: var(--osea-gold); font-size: 1.4rem;">FINAL STATUS: WAITING ON THE DISTRICT</strong><br><br>
-            As of September 29th, the District holds the responses from the Union on <strong>Articles 1-15</strong>. The Union team has done its part and responded quickly at every turn. We have ceased further work on these articles because there is nothing left for us to do but wait for them to stop stalling.
-        </div>
-
-        <!-- LEVERAGE / CTA BOX -->
-        <div class="power-box">
-            <h2>STOP THE STALLING TACTICS</h2>
-            <p>The only way to force the District to the table to finalize this contract is by showing them we are united. When our membership numbers hit 80%, they can no longer afford to ignore our proposals or run out the clock on our livelihoods.</p>
-            <p>Higher membership strips away their ability to delay and forces them to bargain in good faith.</p>
-            <p style="color: var(--osea-gold); font-weight: 900; font-size: 1.5rem; margin-top: 25px;">Don't let them hold our contract hostage. Join OSEA Chapter 100 today.</p>
-        </div>
-
-        <div style="margin-bottom: 50px;">
-            <a href="index.html" class="btn">← Back to Membership Drive</a>
-        </div>
-    </div>
-
-    <script>
-        // UNIVERSAL LIVE TIMER 
-        function updateLiveTimers() {
-            const timers = document.querySelectorAll('.live-timer');
-            const now = new Date().getTime();
-
-            timers.forEach(timer => {
-                const startDateStr = timer.getAttribute('data-start');
-                const startDate = new Date(startDateStr).getTime();
-                const distance = now - startDate;
-
-                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-                timer.innerHTML = "🛑 " + days + " days, " + hours + " hours, " + minutes + " minutes, " + seconds + " seconds";
-            });
-        }
-
-        setInterval(updateLiveTimers, 1000);
-        updateLiveTimers(); 
-    </script>
-</body>
-</html>
