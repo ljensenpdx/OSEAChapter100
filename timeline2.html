@@ -576,7 +576,7 @@
     </div>
 
     <script>
-        // List of all completed historical district delay instances in days (including smaller 1 or 2 day gaps)
+        // List of all completed historical district delay instances in days (including smaller gaps)
         const historicalDelaysDays = [1, 33, 7, 2, 5, 28, 7, 43, 34, 28, 7, 2, 83, 13, 2]; 
 
         // Array of pending start timestamps for active district delays (all 5 currently hanging items)
@@ -624,13 +624,9 @@
             document.getElementById('total-cumulative-delay').innerHTML = 
                 totalDays + " days, " + totalHours + " hrs, " + totalMinutes + " mins";
 
-            // 3. School Year Calculations (Classified: 183 days, Bus Drivers: 190 days)
-            // Total delays divided by total delay tracking instances to find average delay, expressed in school years
-            const totalInstances = historicalDelaysDays.length + pendingStarts.length;
-            const averageDelayDays = grandTotalDays / totalInstances;
-
+            // 3. School Year Calculations (Classified: 183 days, Bus Drivers: 186 days)
             const classifiedYears = (grandTotalDays / 183).toFixed(4);
-            const busYears = (grandTotalDays / 190).toFixed(4);
+            const busYears = (grandTotalDays / 186).toFixed(4);
 
             document.getElementById('classified-years').innerHTML = classifiedYears + " School Years";
             document.getElementById('bus-years').innerHTML = busYears + " School Years";
