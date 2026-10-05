@@ -334,7 +334,7 @@
                         <td class="actor-col" style="color: var(--alert-red);">District</td>
                         <td>
                             <strong>No response as of yet from the District.</strong><br>
-                            <span class="delay-live" id="live-timer-1-4">Calculating delay...</span>
+                            <span class="delay-live live-timer" data-start="August 4, 2026 00:00:00">Calculating delay...</span>
                         </td>
                     </tr>
                 </tbody>
@@ -386,7 +386,7 @@
                         <td class="actor-col" style="color: var(--alert-red);">District</td>
                         <td>
                             <strong>Awaiting District Response.</strong><br>
-                            <span class="delay-extreme daily-timer" data-date="2026-09-27">Calculating...</span>
+                            <span class="delay-live live-timer" data-start="September 27, 2026 00:00:00">Calculating delay...</span>
                         </td>
                     </tr>
                 </tbody>
@@ -433,7 +433,7 @@
                         <td class="actor-col" style="color: var(--alert-red);">District</td>
                         <td>
                             <strong>Awaiting District Response.</strong><br>
-                            <span class="delay-extreme daily-timer" data-date="2026-09-27">Calculating...</span>
+                            <span class="delay-live live-timer" data-start="September 27, 2026 00:00:00">Calculating delay...</span>
                         </td>
                     </tr>
                 </tbody>
@@ -470,7 +470,7 @@
                         <td class="actor-col" style="color: var(--alert-red);">District</td>
                         <td>
                             <strong>Awaiting District Response.</strong><br>
-                            <span class="delay-extreme daily-timer" data-date="2026-09-29">Calculating...</span>
+                            <span class="delay-live live-timer" data-start="September 29, 2026 00:00:00">Calculating delay...</span>
                         </td>
                     </tr>
                 </tbody>
@@ -512,7 +512,7 @@
                         <td class="actor-col" style="color: var(--alert-red);">District</td>
                         <td>
                             <strong>Awaiting District Response.</strong><br>
-                            <span class="delay-extreme daily-timer" data-date="2026-09-26">Calculating...</span>
+                            <span class="delay-live live-timer" data-start="September 26, 2026 00:00:00">Calculating delay...</span>
                         </td>
                     </tr>
                 </tbody>
@@ -538,45 +538,30 @@
     </div>
 
     <script>
-        // LIVE TIMER FOR ARTICLES 1-4 (Updates every second)
-        function updateLiveTimer() {
-            // Set start date to August 4, 2026 at midnight
-            const startDate = new Date('August 4, 2026 00:00:00').getTime(); 
+        // UNIVERSAL LIVE TIMER 
+        // Automatically finds all elements with the 'live-timer' class and calculates the delay by the second
+        function updateLiveTimers() {
+            const timers = document.querySelectorAll('.live-timer');
             const now = new Date().getTime();
-            const distance = now - startDate;
 
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            timers.forEach(timer => {
+                const startDateStr = timer.getAttribute('data-start');
+                const startDate = new Date(startDateStr).getTime();
+                const distance = now - startDate;
 
-            document.getElementById('live-timer-1-4').innerHTML = 
-                "🛑 " + days + " days, " + hours + " hours, " + minutes + " minutes, " + seconds + " seconds";
-        }
+                // Time calculations
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-        // DAILY TIMERS (Updates automatically based on current date)
-        function calculateDailyDelays() {
-            const today = new Date();
-            today.setHours(0,0,0,0); // Normalize to start of day
-            
-            const elements = document.querySelectorAll('.daily-timer');
-            elements.forEach(el => {
-                const submitDateStr = el.getAttribute('data-date');
-                // Create submission date and split to avoid timezone shift issues
-                const parts = submitDateStr.split('-');
-                const submitDate = new Date(parts[0], parts[1] - 1, parts[2]);
-                submitDate.setHours(0,0,0,0);
-                
-                const diffTime = Math.abs(today - submitDate);
-                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-                
-                el.innerHTML = "🛑 WAITING " + diffDays + " DAYS";
+                timer.innerHTML = "🛑 " + days + " days, " + hours + " hours, " + minutes + " minutes, " + seconds + " seconds";
             });
         }
 
-        // Initialize scripts
-        setInterval(updateLiveTimer, 1000);
-        calculateDailyDelays();
+        // Run the timer update every 1 second
+        setInterval(updateLiveTimers, 1000);
+        updateLiveTimers(); // Run once immediately on load
     </script>
 </body>
 </html>
