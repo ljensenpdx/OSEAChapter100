@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detailed Bargaining Timeline | OSEA Chapter 100</title>
+    <style>
+        /* Color Palette & Branding */
+        :root {
+            --osea-navy: #002855;
+            --osea-gold: #F2A900;
+            --ranger-green: #004D2C;
+            --ranger-black: #000000;
+            --text-light: #F8F9FA;
+            --white: #FFFFFF;
+            --alert-red: #d32f2f;
+            --union-blue: #e6f0ff;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--white);
+            background-color: var(--ranger-black);
+            background-image: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 77, 44, 0.85)), url('https://scontent-sea5-1.xx.fbcdn.net/v/t39.30808-6/491342466_1221310923332904_3958040484620103444_n.jpg?stp=dst-jpg_tt6&cstp=mx2048x1365&ctp=s2048x1365&_nc_cat=101&ccb=1-7&_nc_sid=127cfc&_nc_ohc=4UYUQWrU4qoQ7kNvwGtHiMp&_nc_oc=AdqVbUy-lkjQ56dVgFbPpwCjAPiZR02GNAnL0-CF6khBntn1AksWxElWqYjEqaJlf5Q&_nc_zt=23&_nc_ht=scontent-sea5-1.xx&_nc_gid=6USBVBeKqzIUuQsI2ngZ2g&_nc_ss=7b2a8&oh=00_AQPUMs5IU9byNgprqH-a5ioK4srH5M2OFZRgJfNGnT4JuA&oe=6AC26D89');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Header Elements */
+        .header {
+            width: 100%;
+            background-color: var(--white);
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-sizing: border-box;
+            border-bottom: 5px solid var(--osea-gold);
+        }
+
+        .header img {
+            max-height: 50px;
+        }
+
+        .header h1 {
+            color: var(--osea-navy);
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1100px;
+            width: 95%;
+            margin: 40px auto;
+            text-align: center;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--osea-gold);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 10px;
+        }
+
+        .main-heading {
+            font-size: 2.5rem;
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            color: var(--alert-red);
+        }
+
+        .intro-text {
+            font-size: 1.15rem;
+            line-height: 1.6;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 25px;
+            border-left: 6px solid var(--alert-red);
+            margin-bottom: 30px;
+            text-align: left;
+            border-radius: 0 10px 10px 0;
+        }
+
+        /* Scorecard */
+        .scorecard {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .score-card {
+            flex: 1;
+            background-color: var(--white);
+            color: var(--ranger-black);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            border-top: 6px solid;
+            text-align: center;
+        }
+
+        .score-union { border-color: #2e7d32; }
+        .score-district { border-color: var(--alert-red); background-color: #ffe6e6; }
+        .score-hostage { border-color: var(--ranger-black); background-color: var(--osea-gold); }
+
+        .score-card h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            color: #555;
+        }
+
+        .score-union h3 { color: #2e7d32; }
+        .score-district h3 { color: var(--alert-red); }
+        .score-hostage h3 { color: var(--ranger-black); }
+
+        .score-number {
+            font-size: 3rem;
+            font-weight: 900;
+            margin: 0;
+            line-height: 1;
+        }
+
+        /* Table Styling */
+        .table-container {
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            margin-bottom: 40px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            color: var(--ranger-black);
+            text-align: left;
+        }
+
+        th.group-header {
+            background-color: var(--osea-navy);
+            color: var(--osea-gold);
+            padding: 15px 20px;
+            font-size: 1.3rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 3px solid var(--ranger-black);
+        }
+
+        td {
+            padding: 15px 20px;
+            border-bottom: 1px solid #ddd;
+            font-size: 1.05rem;
+            vertical-align: middle;
+        }
+
+        .date-col { font-weight: bold; width: 15%; white-space: nowrap; }
+        .actor-col { font-weight: 900; width: 15%; text-transform: uppercase; }
+
+        .union-row { background-color: var(--union-blue); }
+        .union-row .actor-col { color: var(--osea-navy); }
+        .district-row { background-color: var(--white); }
+        .district-row .actor-col { color: #555; }
+
+        .quick-turnaround {
+            color: #2e7d32;
+            font-weight: bold;
+            font-size: 0.95rem;
+        }
+
+        .delay-extreme {
+            color: var(--white);
+            font-weight: 900;
+            background-color: var(--alert-red);
+            border: 2px solid #8b0000;
+            padding: 6px 12px;
+            border-radius: 6px;
+            display: inline-block;
+            margin-top: 5px;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .delay-moderate {
+            color: var(--white);
+            font-weight: 900;
+            background-color: #d48800;
+            border: 2px solid #a36800;
+            padding: 6px 12px;
+            border-radius: 6px;
+            display: inline-block;
+            margin-top: 5px;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+        }
+        
+        .delay-live {
+            color: var(--white);
+            font-weight: 900;
+            background-color: #000000;
+            border: 2px solid var(--alert-red);
+            padding: 8px 15px;
+            border-radius: 6px;
+            display: inline-block;
+            margin-top: 8px;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            box-shadow: 0 3px 10px rgba(211,47,47,0.6);
+            font-family: monospace;
+        }
+
+        .highlight-row {
+            background-color: #ffe6e6 !important;
+            border-left: 6px solid var(--alert-red);
+        }
+
+        /* Status & Power Boxes */
+        .status-box {
+            background-color: var(--osea-navy);
+            border: 2px solid #888;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            line-height: 1.5;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+            text-align: left;
+        }
+
+        .power-box {
+            background-color: rgba(0, 0, 0, 0.8);
+            border: 3px solid var(--osea-gold);
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            font-size: 1.3rem;
+            line-height: 1.6;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+            text-align: center;
+        }
+
+        .power-box h2 {
+            color: var(--white);
+            margin-top: 0;
+            font-size: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-bottom: 2px solid
