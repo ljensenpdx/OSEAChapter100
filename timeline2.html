@@ -118,7 +118,7 @@
 
         .score-card h3 {
             margin: 0 0 10px 0;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             text-transform: uppercase;
             color: #555;
         }
@@ -128,10 +128,10 @@
         .score-hostage h3 { color: var(--ranger-black); font-weight: 900;}
 
         .score-number {
-            font-size: 3rem;
+            font-size: 2.2rem;
             font-weight: 900;
             margin: 0;
-            line-height: 1;
+            line-height: 1.2;
         }
 
         /* Table Styling */
@@ -175,7 +175,7 @@
         .district-row { background-color: var(--white); }
         .district-row .actor-col { color: #555; }
 
-        /* The New Highlight Badges */
+        /* Highlight Badges */
         .union-fast {
             background-color: #2e7d32;
             color: var(--white);
@@ -288,6 +288,7 @@
             th, td { padding: 10px; font-size: 0.9rem; }
             .date-col, .actor-col { width: auto; }
             .delay-live { font-size: 0.9rem; padding: 5px 10px; }
+            .score-number { font-size: 1.5rem; }
         }
     </style>
 </head>
@@ -310,18 +311,15 @@
         <div class="scorecard">
             <div class="score-card score-union">
                 <h3>Union's Fastest Turnaround</h3>
-                <div class="score-number">4</div>
-                <div style="font-weight: bold; margin-top: 5px;">DAYS</div>
+                <div class="score-number" style="color: #2e7d32;">4 DAYS</div>
             </div>
             <div class="score-card score-district">
-                <h3>District's Slowest Turnaround</h3>
-                <div class="score-number">57</div>
-                <div style="font-weight: bold; margin-top: 5px; color: var(--alert-red);">DAYS</div>
+                <h3>Total Cumulative District Delay</h3>
+                <div class="score-number" id="total-cumulative-delay" style="color: var(--alert-red); font-size: 1.3rem;">Calculating...</div>
             </div>
             <div class="score-card score-hostage">
-                <h3>Articles Currently Held By District</h3>
-                <div class="score-number">15</div>
-                <div style="font-weight: bold; margin-top: 5px;">ARTICLES</div>
+                <h3>Articles Currently Held</h3>
+                <div class="score-number" style="color: var(--ranger-black);">15 ARTICLES</div>
             </div>
         </div>
 
@@ -578,11 +576,24 @@
     </div>
 
     <script>
-        // UNIVERSAL LIVE TIMER 
+        // Sum of known fixed historical district delays in milliseconds
+        // (33 + 57 + 43 + 13 days in ms)
+        const historicalDelayMs = (33 + 57 + 43 + 13) * 24 * 60 * 60 * 1000;
+
+        // Array of pending start dates for active district delays
+        const pendingStarts = [
+            new Date('August 4, 2026 00:00:00').getTime(),       // Articles 1-4
+            new Date('September 27, 2026 00:00:00').getTime(),  // Articles 5-8
+            new Date('September 27, 2026 00:00:00').getTime(),  // Articles 9-11
+            new Date('September 29, 2026 00:00:00').getTime(),  // Articles 12-14
+            new Date('September 26, 2026 00:00:00').getTime()   // Article 15 & Pivot
+        ];
+
         function updateLiveTimers() {
             const timers = document.querySelectorAll('.live-timer');
             const now = new Date().getTime();
 
+            // 1. Update individual live timers in table
             timers.forEach(timer => {
                 const startDateStr = timer.getAttribute('data-start');
                 const startDate = new Date(startDateStr).getTime();
@@ -595,6 +606,652 @@
 
                 timer.innerHTML = "🛑 " + days + " days, " + hours + " hours, " + minutes + " minutes, " + seconds + " seconds";
             });
+
+            // 2. Calculate Total Cumulative District Delay (Historical + Live running sum across all pending items)
+            let totalActiveMs = 0;
+            pendingStarts.forEach(startTime => {
+                totalActiveMs += (now - startTime);
+            });
+
+            const grandTotalMs = historicalDelayMs + totalActiveMs;
+
+            const totalDays = Math.floor(grandTotalMs / (1000 * 60 * 60 * 24));
+            const totalHours = Math.floor((grandTotalMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const totalMinutes = Math.floor((grandTotalMs % (1000 * 60 * 60)) / (1000 * 60));
+            const totalSeconds = Math.floor((grandTotalMs % (1000 * 60)) / 1000);
+
+            document.getElementById('total-cumulative-delay').innerHTML = 
+                totalDays + " days, " + totalHours + " hrs, " + totalMinutes + " mins";
+        }
+
+        setInterval(updateLiveTimers, 1000);
+        updateLiveTimers(); 
+    </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detailed Bargaining Timeline | OSEA Chapter 100</title>
+    <style>
+        /* Color Palette & Branding */
+        :root {
+            --osea-navy: #002855;
+            --osea-gold: #F2A900;
+            --ranger-green: #004D2C;
+            --ranger-black: #000000;
+            --text-light: #F8F9FA;
+            --white: #FFFFFF;
+            --alert-red: #d32f2f;
+            --union-blue: #e6f0ff;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--white);
+            background-color: var(--ranger-black);
+            background-image: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 77, 44, 0.85)), url('https://scontent-sea5-1.xx.fbcdn.net/v/t39.30808-6/491342466_1221310923332904_3958040484620103444_n.jpg?stp=dst-jpg_tt6&cstp=mx2048x1365&ctp=s2048x1365&_nc_cat=101&ccb=1-7&_nc_sid=127cfc&_nc_ohc=4UYUQWrU4qoQ7kNvwGtHiMp&_nc_oc=AdqVbUy-lkjQ56dVgFbPpwCjAPiZR02GNAnL0-CF6khBntn1AksWxElWqYjEqaJlf5Q&_nc_zt=23&_nc_ht=scontent-sea5-1.xx&_nc_gid=6USBVBeKqzIUuQsI2ngZ2g&_nc_ss=7b2a8&oh=00_AQPUMs5IU9byNgprqH-a5ioK4srH5M2OFZRgJfNGnT4JuA&oe=6AC26D89');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Header Elements */
+        .header {
+            width: 100%;
+            background-color: var(--white);
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-sizing: border-box;
+            border-bottom: 5px solid var(--osea-gold);
+        }
+
+        .header img {
+            max-height: 50px;
+        }
+
+        .header h1 {
+            color: var(--osea-navy);
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1100px;
+            width: 95%;
+            margin: 40px auto;
+            text-align: center;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--osea-gold);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 10px;
+        }
+
+        .main-heading {
+            font-size: 2.5rem;
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            color: var(--alert-red);
+        }
+
+        .intro-text {
+            font-size: 1.15rem;
+            line-height: 1.6;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 25px;
+            border-left: 6px solid var(--alert-red);
+            margin-bottom: 40px;
+            text-align: left;
+            border-radius: 0 10px 10px 0;
+        }
+
+        /* Scorecard */
+        .scorecard {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .score-card {
+            flex: 1;
+            background-color: var(--white);
+            color: var(--ranger-black);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            border-top: 6px solid;
+            text-align: center;
+        }
+
+        .score-union { border-color: #2e7d32; }
+        .score-district { border-color: var(--alert-red); background-color: #ffe6e6; }
+        .score-hostage { border-color: var(--ranger-black); background-color: var(--osea-gold); }
+
+        .score-card h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.05rem;
+            text-transform: uppercase;
+            color: #555;
+        }
+
+        .score-union h3 { color: #2e7d32; font-weight: 900; }
+        .score-district h3 { color: var(--alert-red); font-weight: 900;}
+        .score-hostage h3 { color: var(--ranger-black); font-weight: 900;}
+
+        .score-number {
+            font-size: 2.2rem;
+            font-weight: 900;
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        /* Table Styling */
+        .table-container {
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            margin-bottom: 40px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            color: var(--ranger-black);
+            text-align: left;
+        }
+
+        th.group-header {
+            background-color: var(--osea-navy);
+            color: var(--osea-gold);
+            padding: 15px 20px;
+            font-size: 1.3rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 3px solid var(--ranger-black);
+        }
+
+        td {
+            padding: 15px 20px;
+            border-bottom: 1px solid #ddd;
+            font-size: 1.05rem;
+            vertical-align: middle;
+        }
+
+        .date-col { font-weight: bold; width: 15%; white-space: nowrap; }
+        .actor-col { font-weight: 900; width: 15%; text-transform: uppercase; }
+
+        .union-row { background-color: var(--union-blue); }
+        .union-row .actor-col { color: var(--osea-navy); }
+        .district-row { background-color: var(--white); }
+        .district-row .actor-col { color: #555; }
+
+        /* Highlight Badges */
+        .union-fast {
+            background-color: #2e7d32;
+            color: var(--white);
+            padding: 6px 12px;
+            border-radius: 6px;
+            display: inline-block;
+            font-weight: bold;
+            margin-top: 5px;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            letter-spacing: 0.5px;
+        }
+
+        .district-slow {
+            background-color: #b71c1c;
+            color: var(--white);
+            padding: 8px 15px;
+            border-radius: 6px;
+            display: inline-block;
+            font-weight: 900;
+            margin-top: 5px;
+            font-size: 1.1rem;
+            border: 2px solid #ff5252;
+            box-shadow: 0 4px 10px rgba(211,47,47,0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+        }
+        
+        .delay-live {
+            color: var(--white);
+            font-weight: 900;
+            background-color: #000000;
+            border: 2px solid var(--alert-red);
+            padding: 8px 15px;
+            border-radius: 6px;
+            display: inline-block;
+            margin-top: 8px;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            box-shadow: 0 3px 10px rgba(211,47,47,0.6);
+            font-family: monospace;
+        }
+
+        .highlight-row {
+            background-color: #ffe6e6 !important;
+            border-left: 6px solid var(--alert-red);
+        }
+
+        /* Status & Power Boxes */
+        .status-box {
+            background-color: var(--osea-navy);
+            border: 2px solid #888;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            line-height: 1.5;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+            text-align: left;
+        }
+
+        .power-box {
+            background-color: rgba(0, 0, 0, 0.8);
+            border: 3px solid var(--osea-gold);
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            font-size: 1.3rem;
+            line-height: 1.6;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+            text-align: center;
+        }
+
+        .power-box h2 {
+            color: var(--white);
+            margin-top: 0;
+            font-size: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-bottom: 2px solid var(--alert-red);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .btn {
+            background-color: var(--text-light);
+            color: var(--ranger-black);
+            border: 2px solid var(--ranger-black);
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-radius: 30px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background-color: var(--osea-gold);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .scorecard { flex-direction: column; }
+            .main-heading { font-size: 2rem; }
+            th, td { padding: 10px; font-size: 0.9rem; }
+            .date-col, .actor-col { width: auto; }
+            .delay-live { font-size: 0.9rem; padding: 5px 10px; }
+            .score-number { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <h1>OSEA</h1>
+        <img src="https://cfunity-school-logos.nfhsnetwork.com/school_logos/e104b783-91d0-4185-ab92-95cfd757b401/d3cd8606cd_p137.png" alt="Estacada Star">
+    </header>
+
+    <div class="container">
+        <div class="subtitle">OSEA Estacada Chapter 100 | Contract Negotiations</div>
+        <div class="main-heading">A VISION OF CONTINUOUS IMPROVEMENT.<br>A STRATEGY OF INTENTIONAL STALLING.</div>
+
+        <div class="intro-text">
+            <p><strong>When one side consistently responds in days, and the other side takes months, it isn't a scheduling issue—it is a bargaining strategy.</strong></p>
+            <p>The timeline below proves that the Union is doing the work to reach a fair contract. Every time we submit a proposal, the District forces us to wait. They are running out the clock on the classified staff who keep this district running.</p>
+        </div>
+
+        <div class="scorecard">
+            <div class="score-card score-union">
+                <h3>Union's Fastest Turnaround</h3>
+                <div class="score-number" style="color: #2e7d32;">4 DAYS</div>
+            </div>
+            <div class="score-card score-district">
+                <h3>Total Cumulative District Delay</h3>
+                <div class="score-number" id="total-cumulative-delay" style="color: var(--alert-red); font-size: 1.3rem;">Calculating...</div>
+            </div>
+            <div class="score-card score-hostage">
+                <h3>Articles Currently Held</h3>
+                <div class="score-number" style="color: var(--ranger-black);">15 ARTICLES</div>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <!-- ARTICLES 1-4 -->
+                <thead>
+                    <tr>
+                        <th colspan="3" class="group-header">Articles 1-4</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="union-row">
+                        <td class="date-col">May 29</td>
+                        <td class="actor-col">Union</td>
+                        <td>1st submitted for District review.</td>
+                    </tr>
+                    <tr class="union-row">
+                        <td class="date-col">June 30</td>
+                        <td class="actor-col">Union</td>
+                        <td>Union responds with additions to 1st submission.</td>
+                    </tr>
+                    <tr class="district-row highlight-row">
+                        <td class="date-col">July 1</td>
+                        <td class="actor-col">District</td>
+                        <td>District provides response. <br><span class="district-slow">🚨 OVER 1 MONTH LATE (33 DAYS)</span></td>
+                    </tr>
+                    <tr class="district-row">
+                        <td class="date-col">July 8</td>
+                        <td class="actor-col">District</td>
+                        <td>District responds with additional changes.</td>
+                    </tr>
+                    <tr class="union-row">
+                        <td class="date-col">July 21</td>
+                        <td class="actor-col">Union</td>
+                        <td>Union responds with changes. <br><span class="union-fast">✓ Union turned around in just 13 days</span></td>
+                    </tr>
+                    <tr class="district-row">
+                        <td class="date-col">July 23</td>
+                        <td class="actor-col">District</td>
+                        <td>District responds.</td>
+                    </tr>
+                    <tr class="union-row">
+                        <td class="date-col">August 4</td>
+                        <td class="actor-col">Union</td>
+                        <td>Union responds with changes. <br><span class="union-fast">✓ Union turned around in just 12 days</span></td>
+                    </tr>
+                    <tr class="district-row highlight-row">
+                        <td class="date-col">Current</td>
+                        <td class="actor-col" style="color: var(--alert-red);">District</td>
+                        <td>
+                            <strong>IGNORING THE UNION: No response as of yet.</strong><br>
+                            <span class="delay-live live-timer" data-start="August 4, 2026 00:00:00">Calculating delay...</span>
+                        </td>
+                    </tr>
+                </tbody>
+
+                <!-- ARTICLES 5-8 -->
+                <thead>
+                    <tr>
+                        <th colspan="3" class="group-header">Articles 5-8</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="union-row">
+                        <td class="date-col">May 29</td>
+                        <td class="actor-col">Union</td>
+                        <td>Articles 5 & 6 submitted for District review.</td>
+                    </tr>
+                    <tr class="union-row">
+                        <td class="date-col">June 3</td>
+                        <td class="actor-col">Union</td>
+                        <td>Articles 7 & 8 submitted for District review.</td>
+                    </tr>
+                    <tr class="district-row highlight-row">
+                        <td class="date-col">July 1</td>
+                        <td class="actor-col">District</td>
+                        <td>District responds. <br><span class="district-slow">🚨 OVER 3 WEEKS LATE (28+ DAYS)</span></td>
+                    </tr>
+                    <tr class="district-row">
+                        <td class="date-col">July 8</td>
+                        <td class="actor-col">District</td>
+                        <td>District responds with additional changes.</td>
+                    </tr>
+                    <tr class="union-row">
+                        <td class="date-col">July 28</td>
+                        <td class="actor-col">Union</td>
+                        <td>Union responds with changes. <br><span class="union-fast">✓ Union turned around in 20 days</span></td>
+                    </tr>
+                    <tr class="district-row highlight-row">
+                        <td class="date-col">Sept 23</td>
+                        <td class="actor-col" style="color: var(--alert-red);">District</td>
+                        <td>District finally responds.<br><span class="district-slow">🛑 INTENTIONAL STALLING: 57 DAY DELAY</span></td>
+                    </tr>
+                    <tr class="union-row">
+                        <td class="date-col">Sept 27</td>
+                        <td class="actor-col">Union</td>
+                        <td>Union sends responses for Articles 5-11. <br><span class="union-fast">✓ Union turned around in just 4 days</span></td>
+                    </tr>
+                    <tr class="district-row highlight-row">
+                        <td class="date-col">Current</td>
+                        <td class="actor-col" style="color: var(--alert-red);">District</td>
+                        <td>
+                            <strong>BALL IS IN THEIR COURT: Awaiting District Response.</strong><br>
+                            <span class="delay-live live-timer" data-start="September 27, 2026 00:00:00">Calculating delay...</span>
+                        </td>
+                    </tr>
+                </tbody>
+
+                <!-- ARTICLES 9-11 -->
+                <thead>
+                    <tr>
+                        <th colspan="3" class="group-header">Articles 9-11</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="union-row">
+                        <td class="date-col">June 3</td>
+                        <td class="actor-col">Union</td>
+                        <td>1st submitted for District review.</td>
+                    </tr>
+                    <tr class="district-row highlight-row">
+                        <td class="date-col">July 1</td>
+                        <td class="actor-col">District</td>
+                        <td>District responds. <br><span class="district-slow">🚨 OVER 3 WEEKS LATE (28 DAYS)</span></td>
+                    </tr>
+                    <tr class="district-row">
+                        <td class="date-col">July 8</td>
+                        <td class="actor-col">District</td>
+                        <td>District responds with additional changes.</td>
+                    </tr>
+                    <tr class="union-row">
+                        <td class="date-col">August 11</td>
+                        <td class="actor-col">Union</td>
+                        <td>Union responds with changes.</td>
+                    </tr>
+                    <tr class="district-row highlight-row">
+                        <td class="date-col">Sept 23</td>
+                        <td class="actor-col" style="color: var(--alert-red);">District</td>
+                        <td>District finally responds. <br><span class="district-slow">🛑 INTENTIONAL STALLING: 43 DAY DELAY</span></td>
+                    </tr>
+                    <tr class="union-row">
+                        <td class="date-col">Sept 27</td>
+                        <td class="actor-col">Union</td>
+                        <td>Union sends responses for Articles 5-11. <br><span class="union-fast">✓ Union turned around in just 4 days</span></td>
+                    </tr>
+                    <tr class="district-row highlight-row">
+                        <td class="date-col">Current</td>
+                        <td class="actor-col" style="color: var(--alert-red);">District</td>
+                        <td>
+                            <strong>BALL IS IN THEIR COURT: Awaiting District Response.</strong><br>
+                            <span class="delay-live live-timer" data-start="September 27, 2026 00:00:00">Calculating delay...</span>
+                        </td>
+                    </tr>
+                </tbody>
+
+                <!-- ARTICLES 12-14 -->
+                <thead>
+                    <tr>
+                        <th colspan="3" class="group-header">Articles 12-14</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="union-row">
+                        <td class="date-col">June 9</td>
+                        <td class="actor-col">Union</td>
+                        <td>1st submitted for District review.</td>
+                    </tr>
+                    <tr class="district-row highlight-row">
+                        <td class="date-col">July 1</td>
+                        <td class="actor-col">District</td>
+                        <td>District responds. <br><span class="district-slow">🚨 OVER 3 WEEKS LATE (22 DAYS)</span></td>
+                    </tr>
+                    <tr class="district-row">
+                        <td class="date-col">July 8</td>
+                        <td class="actor-col">District</td>
+                        <td>District responds with additional changes.</td>
+                    </tr>
+                    <tr class="union-row">
+                        <td class="date-col">Sept 29</td>
+                        <td class="actor-col">Union</td>
+                        <td>Union response to Articles 12-14 attached.</td>
+                    </tr>
+                    <tr class="district-row highlight-row">
+                        <td class="date-col">Current</td>
+                        <td class="actor-col" style="color: var(--alert-red);">District</td>
+                        <td>
+                            <strong>BALL IS IN THEIR COURT: Awaiting District Response.</strong><br>
+                            <span class="delay-live live-timer" data-start="September 29, 2026 00:00:00">Calculating delay...</span>
+                        </td>
+                    </tr>
+                </tbody>
+
+                <!-- ARTICLE 15 & PIVOT -->
+                <thead>
+                    <tr>
+                        <th colspan="3" class="group-header">Article 15 & Wages / Benefits Pivot</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="district-row">
+                        <td class="date-col">Sept 3</td>
+                        <td class="actor-col">District</td>
+                        <td>District proposes pivoting focus of negotiations to wages and benefits.</td>
+                    </tr>
+                    <tr class="union-row">
+                        <td class="date-col">Sept 7</td>
+                        <td class="actor-col">Union</td>
+                        <td>Union agrees to pivot focus, while completing Article 15. <br><span class="union-fast">✓ Union agreed in just 4 days</span></td>
+                    </tr>
+                    <tr class="union-row">
+                        <td class="date-col">Sept 9</td>
+                        <td class="actor-col">Union</td>
+                        <td>Union sends RFI to District to gather information required to negotiate wages and benefits.</td>
+                    </tr>
+                    <tr class="district-row highlight-row">
+                        <td class="date-col">Sept 22</td>
+                        <td class="actor-col">District</td>
+                        <td>District sends information. <br><span class="district-slow">🚨 13 DAY DELAY</span></td>
+                    </tr>
+                    <tr class="union-row">
+                        <td class="date-col">Sept 26</td>
+                        <td class="actor-col">Union</td>
+                        <td>Union submits Article 15 for District review and completes focus shift to wages and benefits. <br><span class="union-fast">✓ Union submitted in just 4 days</span></td>
+                    </tr>
+                    <tr class="district-row highlight-row">
+                        <td class="date-col">Current</td>
+                        <td class="actor-col" style="color: var(--alert-red);">District</td>
+                        <td>
+                            <strong>BALL IS IN THEIR COURT: Awaiting District Response.</strong><br>
+                            <span class="delay-live live-timer" data-start="September 26, 2026 00:00:00">Calculating delay...</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="status-box">
+            <strong style="color: var(--osea-gold); font-size: 1.4rem;">FINAL STATUS: WAITING ON THE DISTRICT</strong><br><br>
+            As of September 29th, the District holds the responses from the Union on <strong>Articles 1-15</strong>. The Union team has done its part and responded quickly at every turn. We have ceased further work on these articles because there is nothing left for us to do but wait for them to stop stalling.
+        </div>
+
+        <!-- LEVERAGE / CTA BOX -->
+        <div class="power-box">
+            <h2>STOP THE STALLING TACTICS</h2>
+            <p>The only way to force the District to the table to finalize this contract is by showing them we are united. When our membership numbers hit 80%, they can no longer afford to ignore our proposals or run out the clock on our livelihoods.</p>
+            <p>Higher membership strips away their ability to delay and forces them to bargain in good faith.</p>
+            <p style="color: var(--osea-gold); font-weight: 900; font-size: 1.5rem; margin-top: 25px;">Don't let them hold our contract hostage. Join OSEA Chapter 100 today.</p>
+        </div>
+
+        <div style="margin-bottom: 50px;">
+            <a href="index.html" class="btn">← Back to Membership Drive</a>
+        </div>
+    </div>
+
+    <script>
+        // Sum of known fixed historical district delays in milliseconds
+        // (33 + 57 + 43 + 13 days in ms)
+        const historicalDelayMs = (33 + 57 + 43 + 13) * 24 * 60 * 60 * 1000;
+
+        // Array of pending start dates for active district delays
+        const pendingStarts = [
+            new Date('August 4, 2026 00:00:00').getTime(),       // Articles 1-4
+            new Date('September 27, 2026 00:00:00').getTime(),  // Articles 5-8
+            new Date('September 27, 2026 00:00:00').getTime(),  // Articles 9-11
+            new Date('September 29, 2026 00:00:00').getTime(),  // Articles 12-14
+            new Date('September 26, 2026 00:00:00').getTime()   // Article 15 & Pivot
+        ];
+
+        function updateLiveTimers() {
+            const timers = document.querySelectorAll('.live-timer');
+            const now = new Date().getTime();
+
+            // 1. Update individual live timers in table
+            timers.forEach(timer => {
+                const startDateStr = timer.getAttribute('data-start');
+                const startDate = new Date(startDateStr).getTime();
+                const distance = now - startDate;
+
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                timer.innerHTML = "🛑 " + days + " days, " + hours + " hours, " + minutes + " minutes, " + seconds + " seconds";
+            });
+
+            // 2. Calculate Total Cumulative District Delay (Historical + Live running sum across all pending items)
+            let totalActiveMs = 0;
+            pendingStarts.forEach(startTime => {
+                totalActiveMs += (now - startTime);
+            });
+
+            const grandTotalMs = historicalDelayMs + totalActiveMs;
+
+            const totalDays = Math.floor(grandTotalMs / (1000 * 60 * 60 * 24));
+            const totalHours = Math.floor((grandTotalMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const totalMinutes = Math.floor((grandTotalMs % (1000 * 60 * 60)) / (1000 * 60));
+            const totalSeconds = Math.floor((grandTotalMs % (1000 * 60)) / 1000);
+
+            document.getElementById('total-cumulative-delay').innerHTML = 
+                totalDays + " days, " + totalHours + " hrs, " + totalMinutes + " mins";
         }
 
         setInterval(updateLiveTimers, 1000);
